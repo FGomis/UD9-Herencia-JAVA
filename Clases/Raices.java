@@ -3,15 +3,15 @@ package Clases;
 public class Raices {
 	
 //	Atributos
-	protected double a;
+	private double a;
 	
-	protected double b;
+	private double b;
 	
-	protected double c;
+	private double c;
 	
-	protected double discriminante;
+	private double discriminante;
 	
-	protected double raizCuadrada;
+	private double raizCuadrada;
 
 //	Constructor principal
 	public Raices(double a, double b, double c) {
@@ -31,7 +31,7 @@ public class Raices {
 		}
 	}
 	
-//	Comprovamos si el discriminante es cero
+//	Comprobamos si el discriminante es cero
 	private boolean tieneRaiz() {
 		return this.discriminante == 0 ? true : false;
 	}
@@ -70,6 +70,8 @@ public class Raices {
 		this.getDiscriminante();
 		this.raizCuadrada();
 		
+//		Comprobamos cuantas soluciones tiene la ecuacion, si tiene dos ejecutamos obtenerRaices
+//		si tiene solo 1 ejecutamos obtenerRaiz, si no no tiene ninguna solucion
 		if(this.tieneRaices()) {
 			System.out.println(obtenerRaices());
 		} else if(this.tieneRaiz()) {

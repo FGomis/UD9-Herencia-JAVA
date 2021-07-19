@@ -6,7 +6,7 @@ import Clases.*;
 
 public class Metodos {
 //	**** TAREA 1 ****
-		public static void metodoTarea1() {
+		public void metodoTarea1() {
 //			Creamos un array de electrodomesticos con 10 objetos
 			Electrodomestico[] electrodomesticos = {new Electrodomestico(500, "negro", 'Z', 80), 
 													new Lavadora(),
@@ -41,7 +41,7 @@ public class Metodos {
 		}
 		
 //		**** TAREA 2 ****
-		public static void metodoTarea2() {
+		public void metodoTarea2() {
 //			Creamos dos arrays de series y videojuegos con 5 objetos cada uno
 				Serie[] series = {new Serie("Fleabag", 2, "Comedia Dramática", "Phoebe Waller-Bridge"), 
 						new Serie(),
@@ -96,7 +96,7 @@ public class Metodos {
 		}
 		
 //		**** TAREA 3 ****	
-		public static void metodoTarea3() {
+		public void metodoTarea3() {
 			Libro libro1 = new Libro("9780756405892", "El nombre del viento", "Patrick Rothfuss", 873);
 			Libro libro2 = new Libro("9786073105941", "El temor de un hombre sabio", "Patrick Rothfuss", 1190);
 			System.out.println(libro1+"\n"+libro2);
@@ -104,13 +104,13 @@ public class Metodos {
 		}
 		
 //		**** TAREA 4 ****
-		public static void metodoTarea4(){
+		public void metodoTarea4(){
 			Raices raiz1 = new Raices(2,-6,4);
 			raiz1.calcular();
 		}
 		
 //		**** TAREA 5 ****
-		public static void metodoTarea5() {
+		public void metodoTarea5() {
 			String[] materias = {"matemáticas", "filosofía", "física"};
 			Aula[] aulas = new Aula[3];
 			int aforo = 0;
@@ -127,7 +127,7 @@ public class Metodos {
 		}
 		
 //		Método para crear profesores con datos semi aleatorios
-		private static Profesor crearProfe(String materia) {
+		private Profesor crearProfe(String materia) {
 			String[] nombresH = {"Juan", "Jose", "Sergio", "Daniel", "Fernando"};
 			String[] nombresM = {"Maria", "Eva", "Laura", "Cristina", "Núria"};
 			double n = Math.random() * 100;
@@ -143,7 +143,7 @@ public class Metodos {
 		}
 		
 //		Método para crear alumnos con datos semi aleatorios
-		private static Alumno[] crearAlumnos(int aforo, String materias) {
+		private Alumno[] crearAlumnos(int aforo, String materias) {
 			Alumno[] alumnos = new Alumno[aforo];
 			String[] nombresH = {"Kevin", "Iker", "Oscar", "Alberto", "Mario", "Joel", "Gabriel", "Aleix", "Samuel", "Gerdard"};
 			String[] nombresM = {"Marina", "Laia", "Marta", "Alba", "Vanessa", "Alejandra", "Melanie", "Lorena", "Bárbara", "Claudia"};
@@ -169,7 +169,7 @@ public class Metodos {
 		}
 		
 //		Método para mostrar las aulas por pantalla
-		private static void displayAulas(Aula[] aulas) {
+		private void displayAulas(Aula[] aulas) {
 			for (int i = 0; i < aulas.length; i++) {
 				if(aulas[i].comprobarDisponibilidad()) {
 					System.out.println(aulas[i]);
@@ -181,11 +181,13 @@ public class Metodos {
 		}
 		
 //		**** TAREA 6 ****
-		public static void metodoTarea6() {
-			Hashtable<String, Espectador> asientos = new Hashtable<String, Espectador>();
+		public void metodoTarea6() {
+			Hashtable<int[], Espectador> asientos = new Hashtable<int[], Espectador>();
+			int filas = 8;
+			int columnas = 9;
 //			Creamos una pelicula y un cine ya que solo tenemos una sala
 			Pelicula pelicula = new Pelicula("Black Widow", 134, 12, "Cate Shortland");
-			Cine cine = new Cine(pelicula, 7.5, 8, 9, asientos);
+			Cine cine = new Cine(pelicula, 7.5, filas, columnas, asientos);
 //			Variable con el número total de asientos
 			int totalAsientos = cine.getColumnas()*cine.getFilas();
 //			Variable con la que controlamos el bucle para crear y sentar espectadores
@@ -201,15 +203,15 @@ public class Metodos {
 					asientosLibres = false;
 				}
 			}
+			displayCine(filas, columnas);
 			System.out.print(cine);
 		}
 		
-		private static Espectador nuevoEspectador(Cine cine) {
-//			Variable para controlar el bucle y arrays con nombres
+		private Espectador nuevoEspectador(Cine cine) {
 			String[] nombresH = {"Kevin", "Iker", "Oscar", "Alberto", "Mario", "Joel", "Gabriel", "Aleix", "Samuel", "Gerdard"};
 			String[] nombresM = {"Marina", "Laia", "Marta", "Alba", "Vanessa", "Alejandra", "Melanie", "Lorena", "Bárbara", "Claudia"};
 //			Variables para generar un espectador con datos aleatorios
-			double n = Math.random() * 100;;
+			double n = Math.random() * 100;
 			int nombre = (int)(Math.random()*(9-1+1)+1);
 			int edad = (int)(Math.random()*(50-8+1)+8);
 			double dinero = Math.random()*(20-5+1)+5;
@@ -222,14 +224,13 @@ public class Metodos {
 				Espectador espectador = new Espectador(nombresM[nombre], edad, dinero);
 				return espectador;
 			}
-			
 		}
 		
-		private static void sentarEspectador(Espectador espectador, Cine cine) {
+		private void sentarEspectador(Espectador espectador, Cine cine) {
 //			Variables para generar un asiento aleatorio
 			int filaRandom = (int)(Math.random()*(cine.getFilas())+1);
 			int columnasRandom = (int)(Math.random()*(cine.getColumnas())+1);
-			String asiento = String.valueOf(filaRandom) + String.valueOf(columnasRandom);
+			int[] asiento = {filaRandom, columnasRandom};
 			boolean sentado = false;
 			
 //			Bucle para comprobar si podemos sentar al espectador
@@ -244,11 +245,25 @@ public class Metodos {
 					} else {
 						filaRandom = (int)(Math.random()*(cine.getFilas())+1);
 						columnasRandom = (int)(Math.random()*(cine.getColumnas())+1);
-						asiento = String.valueOf(filaRandom) + String.valueOf(columnasRandom);
+						asiento[0] = filaRandom;
+						asiento[1] = columnasRandom;
 					}
 				} else {
 					sentado = true;
 				}
+			}
+		}
+		
+		private void displayCine(int filas, int columnas) {
+			System.out.println("Layout de la sala");
+//			Con dos arrays anidados imprimimos por pantalla un mapa de la sala cogiendo como referencia los atributos
+//			que le pasamos al método
+			for (int i = 0; i < filas; i++) {
+				System.out.print("A");
+				for (int j = 0; j < columnas; j++) {
+					System.out.print((i+1)+" "+(char)(j+66));
+				}
+				System.out.println();
 			}
 		}
 }

@@ -76,10 +76,6 @@ public class Serie implements Entregable{
 		this.creador = creador;
 	}
 
-	public void setEntregado(boolean entregado) {
-		this.entregado = entregado;
-	}
-
 	//	Método toString
 	@Override
 	public String toString() {

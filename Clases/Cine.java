@@ -14,10 +14,10 @@ public class Cine {
 	
 	protected int columnas;
 	
-	protected Hashtable<String, Espectador> asientos;
+	protected Hashtable<int[], Espectador> asientos;
 
 //	Constructor principal
-	public Cine(Pelicula pelicula, double entrada, int filas, int columnas, Hashtable<String, Espectador> asientos) {
+	public Cine(Pelicula pelicula, double entrada, int filas, int columnas, Hashtable<int[], Espectador> asientos) {
 		this.pelicula = pelicula;
 		this.entrada = entrada;
 		this.filas = filas;
@@ -57,11 +57,11 @@ public class Cine {
 		this.columnas = columnas;
 	}
 
-	public Hashtable<String, Espectador> getAsientos() {
+	public Hashtable<int[], Espectador> getAsientos() {
 		return asientos;
 	}
 
-	public void setAsientos(Hashtable<String, Espectador> asientos) {
+	public void setAsientos(Hashtable<int[], Espectador> asientos) {
 		this.asientos = asientos;
 	}
 
@@ -74,11 +74,12 @@ public class Cine {
 //	Método para formatar el output del hashtable que contiene los asientos + espectadores
 	private String asientosOutput() {
 		String output = "";
-		Enumeration<String> keys = asientos.keys();
+		Enumeration<int[]> keys = asientos.keys();
 		Enumeration<Espectador> enumeration = asientos.elements();
 		
 		while (enumeration.hasMoreElements()) {
-			output+="Asiento " + keys.nextElement() + "\nEspectador: " + enumeration.nextElement() + "\n";
+			int[] asiento = keys.nextElement();
+			output+="Asiento " + asiento[0] + "" + (char) (asiento[1]+64) + " "+ "\nEspectador: " + enumeration.nextElement() + "\n";
 		}
 		
 		return output;
